@@ -13,7 +13,7 @@ and
 
 # Reference
 
-* pyjsonrpcembd for python2.5  http://www2s.biglobe.ne.jp/~niitsuma/pyjsonrpcembd.html 
+* my old version pyjsonrpcembd for python2.5  http://www2s.biglobe.ne.jp/~niitsuma/pyjsonrpcembd.html 
 
 * python-on-lisp-ex http://www2s.biglobe.ne.jp/~niitsuma/pythononlispex.html
 
