@@ -1,9 +1,12 @@
 # Install
 make install
 
+# Uninstall
+rm /usr/local/lib/libpyjsonrpcembd.so /usr/local/include/pyjsonrpcembd.h
+
 # Usage
 
-see 
+see example usage in
 `example/example-c.c`
 and
 `example/example-racket.rkt`
