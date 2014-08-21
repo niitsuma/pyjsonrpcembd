@@ -26,6 +26,14 @@ int main()
     printf("\n");
     //pyjsonrpcembdstrexec("z=_"); //not implemented 
     //printf(pyjsonrpcembdhandle("{\"method\": \"setattr\", \"params\": [sys.modules[__name__], \"y\", 424]}"));
+
+    
+    pyjsonrpcembdstrexec("import numpy");
+    printf(pyjsonrpcembdstreval("numpy.linalg.norm([1,2])"));
+    printf("\n");
+    printf(pyjsonrpcembdhandle("{\"method\": \"numpy.linalg.norm\", \"params\": [[1,2]]}")); 
+    printf("\n");
+
     Py_Finalize();
     return 0;
 }
