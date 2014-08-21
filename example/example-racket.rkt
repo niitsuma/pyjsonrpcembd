@@ -1,6 +1,6 @@
 #lang racket
- (require ffi/unsafe)
- (require json)
+(require ffi/unsafe)
+(require json)
 
 (ffi-lib "/usr/local/lib/libpyjsonrpcembd")
 
@@ -20,6 +20,14 @@
         (error 'libpyjsonrpcembd
                "installed libpyjsonrpcembd does not provide \"json\""))))
 
+(define (py func args)
+  (string->jsexpr 
+   (pyjson
+    (jsexpr->string 
+     (make-hash 
+      (list (cons 'method  func) (cons 'params  args )))))))
+
+
 (define pystrexec
     (get-ffi-obj "PyRun_SimpleString" 
                  "libpyjsonrpcembd"
@@ -28,13 +36,16 @@
         (error 'libpyjsonrpcembd
                "installed libpyjsonrpcembd does not provide \"exec\""))))
 
-(define pystr
+(define pystr2json
     (get-ffi-obj "pyjsonrpcembdstreval" 
                  "libpyjsonrpcembd"
                  (_fun _string -> _string)
       (lambda ()
         (error 'libpyjsonrpcembd
                "installed libpyjsonrpcembd does not provide \"eval\""))))
+(define (pystr expr)
+  (string->jsexpr 
+   (pystr2json expr)))
 
 ;;;=================init end====================
 
@@ -46,10 +57,10 @@
 (pystrexec "import numpy")
 (pystrexec "print(numpy.array([3,4]))")
 
-(pystr "3*4")
+(pystr "3*4") ;;=>12
 
-(string->jsexpr 
- (pyjson "{\"method\": \"min\", \"params\": [[9, 3 , 7]]}")) ;;=> 3 
+(py "range" '(2 6)) ;; =>'(2 3 4 5)
+
 (string->jsexpr 
  (pyjson "{\"method\": \"range\", \"params\": [2,6]}"))  ;; =>'(2 3 4 5)
 (string->jsexpr 
@@ -57,12 +68,14 @@
   (jsexpr->string 
    (make-hash '
     ((method . "range") ( params . (2 6))))))) ;;=> '(2 3 4 5)
-(pystr "_") ;"[2, 3, 4, 5]"
+
+(pystr "_") ;;=> '(2 3 4 5)
+
+
+(string->jsexpr 
+ (pyjson "{\"method\": \"min\", \"params\": [[9, 3 , 7]]}")) ;;=> 3 
 
 (pystrexec "x=[3,4]")
-(string->jsexpr (pystr "x*2"))
-
-
-
+(pystr "x*2") ;;=> '(3 4 3 4)
 
 
