@@ -17,6 +17,12 @@
 (pystrexec "print(numpy.array([3,4]))")
 
 
+(pystrexec "x=[3,4]")
+(pystr "x*2") ;;=> '(3 4 3 4)
+(pystrexec (format "x=json.loads('~a')" (jsexpr->string '(3 4))))
+(pystr "x*2") ;;=> '(3 4 3 4)
+
+
 (pystr "range(2,6)") ;; =>'(2 3 4 5)
 (py "range" '(2 6))  ;; =>'(2 3 4 5)
 (pystr (format "apply(range,json.loads('~a'))" (jsexpr->string '(2 6)))) ;;=> '(2 3 4 5)
@@ -34,7 +40,5 @@
 
 (pyjson "{\"method\": \"min\", \"params\": [[9,3,7]]}") ;;=> 3 
 
-(pystrexec "x=[3,4]")
-(pystr "x*2") ;;=> '(3 4 3 4)
 
 (pyfinalize)
