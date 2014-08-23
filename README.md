@@ -1,4 +1,5 @@
 # Install
+cmake .
 make install
 
 # Uninstall
@@ -7,9 +8,10 @@ rm /usr/local/lib/libpyjsonrpcembd.so /usr/local/include/pyjsonrpcembd.h
 # Usage
 
 see example usage in
-`example/example-c.c`
-and
-`example/example-racket.rkt`
+
+* `example/example-racket.rkt`  https://github.com/niitsuma/pyjsonrpcembd/blob/master/example/example-racket.rkt
+
+* `example/example-c.c` https://github.com/niitsuma/pyjsonrpcembd/blob/master/example/example-c.c
 
 # Reference
 
