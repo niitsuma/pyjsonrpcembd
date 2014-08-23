@@ -19,7 +19,7 @@ all:  libpyjsonrpcembd.so test
 
 
 libpyjsonrpcembd.so:	pyjsonrpcembd.cpp pyjsonrpcembd.h 
-	$(CC)  $(SRC) -shared   -o libpyjsonrpcembd.so  -fPIC -Wall  -I/usr/include/python2.7 -lpython2.7 -lboost_python-2.7
+	$(CC)  $(SRC) -shared   -o libpyjsonrpcembd.so  -fPIC -Wall  -I/usr/include/python3.3 -lpython3.3 -lboost_python-3.3
 
 
 install: all pyjsonrpcembd.h
@@ -40,7 +40,7 @@ test:example/example-c libpyjsonrpcembd.so
 
 
 example/example-c:example/example-c.c pyjsonrpcembd.cpp pyjsonrpcembd.h libpyjsonrpcembd.so
-	$(CC) example/example-c.c -I/usr/include/python2.7 -lpython2.7 -lboost_python-2.7 -L. -lpyjsonrpcembd -I.  -o example/example-c
+	$(CC) example/example-c.c -I/usr/include/python3.3 -lpython3.3 -lboost_python-3.3 -L. -lpyjsonrpcembd -I.  -o example/example-c
 
 
 
