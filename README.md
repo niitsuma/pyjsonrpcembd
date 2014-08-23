@@ -1,5 +1,7 @@
 # Install
+
 cmake .
+
 make install
 
 # Uninstall
