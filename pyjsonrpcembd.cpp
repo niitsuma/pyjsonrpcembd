@@ -2,7 +2,6 @@
 #include <iostream>
 #include <stdio.h>
 #include <boost/python.hpp>
-//#include <boost/algorithm/string.hpp> 
 
 using namespace std;
 using namespace boost::python;
@@ -17,16 +16,11 @@ extern "C"
   const char *pyjsonrpcembdhandle(const char *jsonstr)
   {
     std::string jsonstr0(jsonstr);
-    //std::string jsonstr1(jsonstr0.c_str(), jsonstr0.length());
-    //boost::replace_all(jsonstr1, "\"", "\\\"");
-    //std::string eval_json_loads_method_str="str(json.loads(\""+jsonstr1+"\")['method'])";
     std::string eval_json_loads_method_str="str(json.loads('"+jsonstr0+"')['method'])";
     object method_obj = eval(eval_json_loads_method_str.c_str() ,py_main_namespace);
     std::string method_str=extract<std::string>(method_obj);
-    //std::string eval_result_str="apply(" +method_str  +  ",json.loads(\""+jsonstr1+"\")['params'])";
     std::string eval_result_str="apply(" +method_str  +  ",json.loads('"+jsonstr0+"')['params'])";
     py_result = eval(eval_result_str.c_str() ,py_main_namespace);
-    //object result_json_obj=py_main_module.attr("json.dumps")(py_result);
     object result_json_obj=(py_main_module.attr("json").attr("dumps"))(py_result);
     std::string result_json_str=extract<std::string>(result_json_obj); 
     return result_json_str.c_str();
@@ -72,15 +66,6 @@ extern "C"
 				  ,
 				  py_main_namespace);
 
-
-#if 0
-	    PyRun_SimpleString("if sys.version_info[0] > 2:");
-	    PyRun_SimpleString("\tdef apply(fn,args):\n");
-	    PyRun_SimpleString("\t\tif len(args) > 1:\n");
-	    PyRun_SimpleString("\t\t\treturn (fn(*args))\n");
-	    PyRun_SimpleString("\t\telse:\n");
-	    PyRun_SimpleString("\t\t\treturn (fn(args[0]))\n");
-#endif
 	  }
 	catch (error_already_set)
 	  {
